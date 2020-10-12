@@ -45,10 +45,16 @@
             }
             //new map object
             var map = new google.maps.Map(document.getElementById('map'),options);
-            
+
+            //listen for clik on mp
+            google.maps.event.addListener(map, 'click',function(event){
+                    //adding temporary marker
+                    addMarker({coords:event.latLng});
+            });
+
+
+
             //adding marker
-
-
             /*
             var marker = new google.maps.Marker({
                 position:{lat:27.8930,lng:85.4298},
