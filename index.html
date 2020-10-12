@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google map</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #format{
+            width: fit-content;
+            margin:auto;
+        }
+        h1{
+            font-weight: 100;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-style: normal;
+            color: rgba(104, 221, 58, 0.521);
+        }
+        #map{
+            margin-top:50px;
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="format">
+        <h1>My Google Map</h1>
+    </div>
+    
+
+    <div id="map"></div>
+    <script>
+        function initMap(){
+            //map values
+            
+            var options={
+                zoom:8,
+                center:{lat:27.6710,lng:85.4298}
+            }
+            //new map object
+            var map = new google.maps.Map(document.getElementById('map'),options);
+            
+            //adding marker
+
+
+            /*
+            var marker = new google.maps.Marker({
+                position:{lat:27.8930,lng:85.4298},
+                map:map,
+                icon:'http://maps.google.com/mapfiles/ms/icons/toilets.png'
+            });
+            
+            //adding detail for the marker when clicked
+            var infoWindow = new google.maps.InfoWindow({
+                content : '<h3>Shows the detail of the marker</h3>'
+            });
+            
+            //onclik listener
+            marker.addListener('click', function(){
+                infoWindow.open(map, marker);
+            });
+
+            */
+            
+
+            function addMarker(props){
+                var marker = new google.maps.Marker({
+                position:props.coords,
+                map:map,
+                icon:props.iconImage
+            });
+            if(props.details){
+                var infoWindow = new google.maps.InfoWindow({
+                    content : props.details
+                });
+                
+                //onclik listener
+                marker.addListener('click', function(){
+                    infoWindow.open(map, marker);
+                });
+                }
+            }
+
+            /*
+            addMarker({coords:{lat:27.6710,lng:85.4298},
+                iconImage:'http://maps.google.com/mapfiles/ms/icons/blue.png',
+                details:'first marker details'});
+            addMarker({coords:{lat:27.6710,lng:85.5298},
+                iconImage:'http://maps.google.com/mapfiles/ms/icons/tree.png',
+                details:'second marker details'});
+            
+            */
+
+            //array of markers
+            var markers =[
+                {
+                coords:{lat:27.7172,lng:85.3240},
+                iconImage:'http://maps.google.com/mapfiles/ms/icons/blue.png',
+                details:'Capital City'
+                }, 
+                {coords:{lat:27.699391,lng:85.397329},
+                iconImage:'http://maps.google.com/mapfiles/ms/icons/tree.png',
+                details:'Small Forest'
+                }
+                          
+            ]
+            for(var i=0;i<markers.length;i++){
+                addMarker(markers[i]);
+            }
+            
+            
+        }
+    </script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXv3rvl7NVATJPCpIOZhN-CgW8EqFmWH0&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+</body>
+</html>
